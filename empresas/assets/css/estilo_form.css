@@ -1,0 +1,730 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+body{
+    background-color: #EBEDF8;
+    font-family: "Figtree", sans-serif;
+    margin: 0;
+    display: flex;
+    padding: 20px; /* Este crea el "marco" alrededor de todo */
+    box-sizing: border-box;
+}
+
+/*---------------------------NAVBAR---------------------------*/
+.navbar {
+   width: 430px; /* ancho fijo del menú */
+   height: auto; /* ocupa toda la altura de la pantalla */
+   background-color: #274193;
+   display: flex;
+   flex-direction: column;
+   padding: 20px 0; /* Sin padding a los lados para que el botón toque el borde */
+   border-radius: 30px 0px 0px 30px; /* Bordes redondeados del lado derecho de la barra */
+}
+
+/*logo promueve*/
+.navbar img {
+    width: 45%;
+    margin: 0 auto 40px auto; /* Centra el logo y da espacio abajo */
+}
+
+.navbar button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre icono y texto */
+    font-weight: 400;
+    font-size: 24px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.navbar button img {
+    width: 24px;
+    margin: 0; /* quito el margen del logo para iconos pequeños */
+}
+
+.navbar button.active {
+    background-color: white;
+    color: #274193; 
+    border-radius: 30px 0 0 30px; /* Redondeado izquierda, recto derecha */
+    margin-left: 15px; /* Empuja el botón un poco a la derecha para el efecto visual */
+    width: calc(100% - 15px); /* Ajusta el ancho por el margen anterior */
+}
+/*---------------------------NAVBAR---------------------------*/
+
+
+/*---------------------------CONTENT---------------------------*/
+.content {
+    background-color: #FFFFFF;
+    flex: 1; /* ocupa todo el espacio restante */
+    padding: 15px 80px 10px 80px;
+    border-radius: 0px 30px 30px 0px; /* Bordes redondeados del lado derecho y abajo del div de fondo del contenido */
+}
+
+
+.label{
+    background-color: #EBEDF8;
+    border-radius: 50px;
+    padding: 1px 80px 1px 80px;
+    margin-bottom: 30px;
+}
+
+.label h1{
+    color: #274193; 
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.btn_opor {
+    display: block; 
+    margin: 60px auto; 
+    background-color: #274193; 
+    color: white;              
+    border: none;             
+    border-radius: 30px;      
+    padding: 6px 60px;       
+    display: inline-flex;     
+    align-items: center;      
+    justify-content: center; 
+    gap: 10px;                
+    font-size: 20px;          
+    font-weight: 500;         
+    cursor: pointer;         
+    transition: all 0.2s ease-in-out;
+}
+
+.btn_opor {
+    box-shadow: 0px 3px 0px #131b31  !important;
+}
+
+.btn_opor:hover {
+    background-color: #1a2f6b; 
+    box-shadow: 0px 5px 0px 0px #1a2f6b;
+}
+
+.btn_opor img {
+    width: 24px;             
+    height: auto;
+}
+
+.category{
+    background-color: #FFD000;
+    padding: 0px 35px 0px 35px !important;
+    border-radius: 45px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*..........INDICE DE CONTENIDO..........*/
+
+/* =========================
+   FIX REAL PARA LOS PASOS
+   ========================= */
+
+/* Forzar layout horizontal */
+.linea_de_contenido {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+}
+
+/* circulos */
+#general, 
+#detalles, 
+#contacto {
+    width: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* Ajuste de círculos */
+.circle {
+    margin-bottom: 0px;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    background-color: #EBEDF8;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    transition: all 0.3s ease;
+}
+
+/* Línea */
+.linea_de_contenido hr {
+    width: 180px;
+    height: 1.2px;
+    background-color: #274193;
+    border: none;
+    position: relative;
+    top: -15px;
+}
+
+/* Texto */
+.category {
+    background-color: #FFD000;
+    padding: 4px 26px !important;;
+    border-radius: 18px;
+    font-size: 14px;
+}
+
+.category p {
+    margin: 0;
+}
+
+/* ACTIVO */
+.step-active .circle {
+    background-color: #274193;
+    box-shadow: 0px 0px 15px rgba(39, 65, 147, 0.6);
+}
+
+.step-active .category {
+    background-color: #FFD000;
+    font-weight: bold;
+}
+
+/* pasos completados */
+.step-done .circle {
+    background-color: #274193;
+    opacity: 0.5;
+}
+
+
+
+/*..........INDICE DE CONTENIDO..........*/
+
+/*---------------------------CONTENT---------------------------*/
+
+/*---------------- FORM GENERAL ----------------*/
+.form-step {
+    width: 500px;
+    margin-top: 30px;
+}
+
+/* Inputs y selects estilo mockup */
+.form-step input,
+.form-step select {
+    width: 100%;
+    margin: 12px 0;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #EBEDF8;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Para inputs dobles (salario min/max) */
+#campo_salario {
+    display: flex;
+    gap: 10px;
+}
+
+#campo_salario input {
+    width: 50%;
+}
+
+/* Contenedor completo checkbox */
+#campo_visibilidad {
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 0;   
+    margin-top: 0;      
+    padding: 0 20px;    /* alinea con el padding del input */
+}
+
+#campo_remuneracion {
+    margin-bottom: 0;
+}
+
+#campo_visibilidad label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px;
+    margin: 0;
+    line-height: 1;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+#campo_visibilidad input[type="checkbox"] {
+    width: auto;       
+    margin: 0;
+    accent-color: #274193;
+}
+
+
+/*---------------- FORM DETALLES ----------------*/
+
+#detalles_f {
+    width: 100%;
+    max-width: 650px;
+}
+
+/* Fila label + campo */
+.field-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.field-row .field-label {
+    width: 180px;
+    min-width: 180px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+    padding-top: 12px;
+}
+
+.field-row .field-input {
+    flex: 1;
+}
+
+/* Ocultar labels originales del step detalles */
+#detalles_f > label {
+    display: none;
+}
+
+/* ---- SELECT MÚLTIPLE CUSTOM ---- */
+.custom-multi-select {
+    position: relative;
+    width: 100%;
+}
+
+.cms-search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #EBEDF8;
+    border-radius: 25px 25px 0 0;
+    padding: 10px 16px;
+    gap: 8px;
+    border-bottom: 1px solid #d5d8ea;
+}
+
+.cms-search-bar.no-tags {
+    border-radius: 25px;
+    border-bottom: none;
+}
+
+.cms-search-bar img.search-icon {
+    width: 16px;
+    opacity: 0.4;
+}
+
+.cms-search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    flex: 1;
+    color: #333;
+    font-family: "Figtree", sans-serif;
+}
+
+.cms-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background-color: #EBEDF8;
+    padding: 8px 16px;
+    border-radius: 0 0 25px 25px;
+    min-height: 10px;
+}
+
+.cms-tags:empty {
+    display: none;
+}
+
+.cms-tag {
+    background-color: #274193;
+    color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cms-tag span {
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.cms-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+}
+
+.cms-dropdown.open {
+    display: block;
+}
+
+.cms-option {
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+    color: #333;
+}
+
+.cms-option:hover {
+    background-color: #EBEDF8;
+}
+
+.cms-option.selected {
+    color: #274193;
+    font-weight: 600;
+}
+
+/* ---- SELECT SIMPLE CUSTOM ---- */
+.custom-select-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-wrap select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 12px 40px 12px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #EBEDF8;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    font-family: "Figtree", sans-serif;
+    color: #333;
+}
+
+.custom-select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #274193;
+    pointer-events: none;
+}
+
+/* ---- TEXTAREA ---- */
+#detalles_f textarea {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #EBEDF8;
+    font-size: 15px;
+    outline: none;
+    resize: vertical;
+    font-family: "Figtree", sans-serif;
+    color: #333;
+    box-sizing: border-box;
+    min-height: 100px;
+}
+
+/* ---- INPUT TEXT HORARIO ---- */
+#detalles_f input[name="schedule"] {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #EBEDF8;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+/*---------------- FORM CONTACTO ----------------*/
+
+#contacto_f {
+    width: 100%;
+    max-width: 650px;
+    margin-top: 30px;
+}
+
+#contacto_f input {
+    display: block;
+    width: 360px;
+    padding: 10px 20px;
+    margin: 0;
+}
+
+
+/* ===== RESPONSIVE TABLET Y MÓVIL ===== */
+
+@media (max-width: 900px) {
+
+    body {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    /* NAVBAR horizontal arriba */
+    .navbar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 20px 20px 0 0;
+        padding: 10px 20px;
+        gap: 10px;
+    }
+
+    .navbar img {
+        width: 80px;
+        margin: 0;
+    }
+
+    .navbar button {
+        padding: 10px 14px;
+        font-size: 16px;
+        width: auto;
+    }
+
+    .navbar button.active {
+        border-radius: 20px;
+        margin-left: 0;
+        width: auto;
+    }
+
+    /* CONTENT */
+    .content {
+        border-radius: 0 0 20px 20px;
+        padding: 20px 30px;
+    }
+
+    .label {
+        padding: 1px 20px;
+    }
+
+    .label h1 {
+        font-size: 24px;
+    }
+
+    /* STEPS INDICATOR */
+    .linea_de_contenido hr {
+        width: 60px;
+    }
+
+    /* FORM STEPS */
+    .form-step {
+        width: 100%;
+    }
+
+    /* FIELD ROWS - apilados verticalmente */
+    .field-row {
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+
+    .field-row .field-label {
+        width: 100%;
+        min-width: unset;
+        padding-top: 0;
+        font-size: 14px;
+    }
+
+    .field-row .field-input {
+        width: 100%;
+    }
+
+    /* Contacto inputs full width */
+    #contacto_f input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Salario doble */
+    #campo_salario {
+        flex-direction: row; /* mantener lado a lado */
+    }
+
+    #campo_salario input {
+        width: 50%;
+    }
+
+    /* Botones */
+    .btn_opor {
+        padding: 8px 40px;
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .navbar button span,
+    .navbar button {
+        font-size: 13px;
+        padding: 8px 10px;
+        gap: 6px;
+    }
+
+    .navbar img {
+        width: 60px;
+    }
+
+    .label h1 {
+        font-size: 20px;
+    }
+
+    .content {
+        padding: 15px 16px;
+    }
+
+    .linea_de_contenido hr {
+        width: 30px;
+    }
+
+    .circle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .category {
+        font-size: 11px;
+        padding: 4px 12px !important;
+    }
+
+    #campo_salario {
+        flex-direction: column;
+    }
+
+    #campo_salario input {
+        width: 100%;
+    }
+
+    .btn_opor {
+        padding: 8px 30px;
+        font-size: 15px;
+    }
+}
+
+
+
+
+.card {
+        display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.category {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 12px !important;
+    margin-bottom: 8px;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin: 5px 0 10px 0;
+}
+
+.card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 3px solid #EBEDF8;
+}
+
+.info_1 {
+    font-size: 14px;
+    color: #555;
+}
+
+.info_1 strong {
+    color: #274193;
+    font-weight: 600;
+}
+
+
+/* SELECT */
+.card form select {
+    background-color: #EBEDF8;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: "Figtree", sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+
+/* BOTÓN */
+.card form button {
+    background-color: #274193;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* HOVER */
+.card form button:hover {
+    background-color: #1a2f6b;
+}
+
+.btn_form{
+        background-color: #274193;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+}

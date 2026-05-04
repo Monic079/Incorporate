@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+body{
+    background-color: #EBEDF8;
+    font-family: "Figtree", sans-serif;
+    margin: 0;
+    display: flex;
+    padding: 20px; /* Este crea el "marco" alrededor de todo */
+    box-sizing: border-box;
+}
+
+/*---------------------------NAVBAR---------------------------*/
+.navbar {
+   width: 430px; /* ancho fijo del menú */
+   height: 100vh; /* ocupa toda la altura de la pantalla */
+   background-color: #274193;
+   display: flex;
+   flex-direction: column;
+   padding: 20px 0; /* Sin padding a los lados para que el botón toque el borde */
+   border-radius: 30px 0px 0px 30px; /* Bordes redondeados del lado derecho de la barra */
+}
+
+/*logo promueve*/
+.navbar img {
+    width: 45%;
+    margin: 0 auto 40px auto; /* Centra el logo y da espacio abajo */
+}
+
+.navbar button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre icono y texto */
+    font-weight: 400;
+    font-size: 24px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.navbar button img {
+    width: 24px;
+    margin: 0; /* quito el margen del logo para iconos pequeños */
+}
+
+.navbar button.active {
+    background-color: white;
+    color: #274193; 
+    border-radius: 30px 0 0 30px; /* Redondeado izquierda, recto derecha */
+    margin-left: 15px; /* Empuja el botón un poco a la derecha para el efecto visual */
+    width: calc(100% - 15px); /* Ajusta el ancho por el margen anterior */
+}
+/*---------------------------NAVBAR---------------------------*/
+
+
+/*---------------------------CONTET---------------------------*/
+.content {
+    background-color: #FFFFFF;
+    flex: 1; /* ocupa todo el espacio restante */
+    padding: 20px;
+    border-radius: 0px 30px 30px 0px; /* Bordes redondeados del lado derecho y abajo del div de fondo del contenido */
+}
+
+.content > div, 
+.content > button {
+    display: block;    /* Necesario para que el margen funcione */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.label{
+    background-color: #EBEDF8;
+    border-radius: 50px;
+    padding: 1px 80px 1px 80px;
+    margin-bottom: 30px;
+}
+
+.label h1{
+    color: #274193; 
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.btn_opor {
+    margin: 50px 0px 50px 0px;
+    background-color: #274193; 
+    color: white;              
+    border: none;             
+    border-radius: 50px;      
+    padding: 12px 30px;       
+    display: inline-flex;     
+    align-items: center;      
+    justify-content: center; 
+    gap: 10px;                
+    font-size: 24px;          
+    font-weight: 500;         
+    cursor: pointer;         
+    box-shadow: 0px 5px 0px 0px #274193; /* Sombra sólida de 5px hacia abajo */
+    transition: all 0.2s ease-in-out;
+}
+
+.btn_opor:hover {
+    background-color: #1a2f6b; 
+    box-shadow: 0px 5px 0px 0px #1a2f6b;
+}
+
+.btn_opor img {
+    width: 24px;             
+    height: auto;
+}
+
+.cards_background{
+    background-color: #EBEDF8;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.cards_background h2{
+    color: #274193;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.header_oportunidades{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter{
+    background-color: #FFFFFF;
+    border: none;
+    width: 40px;  /* Ajusta según el tamaño deseado */
+    height: 40px;
+    border-radius: 50%; /* Hace el círculo perfecto */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px; /* Separación entre botones */
+    transition: transform 0.2s;
+}
+
+.filter img{
+    width: 18px; /* Tamaño del icono dentro del círculo */
+    height: auto;
+}
+
+/*-----card------*/
+.card {
+    display: flex;
+    flex-direction: column; /* El contenido de la card va hacia abajo */
+    /*background-color: #FFFFFF;*/
+    background-image: url(../img/textura_gris.png);
+    width: fit-content;
+    border-radius: 30px;
+    align-items: center;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.category{
+    background-color: #FFD000;
+    margin-top: 15px;
+    padding: 0px 35px 0px 35px!important;
+    border-radius: 45px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.card_btn{
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+.btn_card {
+    background-color: #274193;
+    border: none;
+    width: 40px;  /* Ajusta según el tamaño deseado */
+    height: 40px;
+    border-radius: 50%; /* Hace el círculo perfecto */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px; /* Separación entre botones */
+    transition: transform 0.2s;
+}
+
+.btn_card img {
+    width: 18px; /* Tamaño del icono dentro del círculo */
+    height: auto;
+}
+
+.btn_card:hover {
+    transform: scale(1.1); /* Efecto visual al pasar el mouse */
+}
+
+.card h3{
+    color: #274193;
+    font-weight: 700;
+}
+
+.info_1, .info_2 {
+    display: flex;
+    align-items: center; /* Centra verticalmente icono y textos */
+    margin-bottom: 12px; /* Espacio entre filas */
+}
+
+/* Ajuste del icono */
+.info_1 img, .info_2 img {
+    width: 20px; /* Tamaño del icono */
+    height: auto;
+    margin-right: 10px; /* "Poca separación" entre icono y primer texto */
+}
+
+/* Primer párrafo (Vacantes: / Aplicaciones:) */
+.info_1 p:nth-of-type(1), 
+.info_2 p:nth-of-type(1) {
+    margin: 0;
+    color: #274193;  /* Color opcional para el nombre del campo */
+}
+
+/* Segundo párrafo (Dato) */
+.info_1 p:nth-of-type(2), 
+.info_2 p:nth-of-type(2) {
+    margin: 0;
+    font-weight: bold;
+    color: #274193; /* El azul de tu tema */
+    margin-left: 25px; /* "Un poquito más de separación" respecto al texto anterior */
+}
+/*-----card------*/
+
+/*---------------------------CONTET---------------------------*/

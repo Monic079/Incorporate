@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: empresas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: empresas
+  template:
+    metadata:
+      labels:
+        app: empresas
+    spec:
+      containers:
+        - name: empresas
+          image: incorporate-empresas
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000

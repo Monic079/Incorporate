@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alumnos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alumnos
+  template:
+    metadata:
+      labels:
+        app: alumnos
+    spec:
+      containers:
+        - name: alumnos
+          image: incorporate-alumnos
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000

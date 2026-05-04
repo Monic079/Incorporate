@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+body{
+    background-color: #274193; 
+    font-family: "Figtree", sans-serif;
+    margin: 0;
+
+    /* Centrar*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh; 
+}
+
+.hidden {
+    display: none;
+}
+
+/* =========================
+   CONTENEDOR INTERNO
+========================= */
+.content{
+    text-align: center;
+    color: white;
+
+    width: 100%;
+    max-width: 350px; 
+}
+
+/* =========================
+   LOGO
+========================= */
+.logo{
+    width: 230px;
+    margin-bottom: 15px;
+
+}
+
+
+/* =========================
+   MENSAJE DE BIENVENIDA
+========================= */
+.welcome-box{
+    background: white;          /* fondo blanco */
+    color: #333;                /* texto oscuro */
+
+    padding: 12px;
+    border-radius: 25px;        /* forma redondeada */
+
+    margin: 20px 0;             /* espacio arriba y abajo */
+    font-size: 14px;
+    text-align: center;
+}
+
+/* =========================
+   BOTONES
+========================= */
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+
+    border-radius: 25px;
+    border: 2px solid white;
+
+    background: transparent;
+    color: white;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+button:hover {
+    background: white;
+    color: #274193;
+}
+
+/* Separador "O" */
+.separator{
+    margin: 10px 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* =========================
+   UTILIDADES
+========================= */
+.hidden {
+    display: none;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+}
