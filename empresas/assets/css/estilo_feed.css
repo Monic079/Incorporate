@@ -11,13 +11,21 @@ body{
 
 /*---------------------------NAVBAR---------------------------*/
 .navbar {
+   position: sticky; /* la navbar se queda fija */
+   top: 20px;
+   align-self: flex-start;
+   height: calc(100vh - 40px);
    width: 430px; /* ancho fijo del menú */
-   height: 100vh; /* ocupa toda la altura de la pantalla */
+   min-height: 100vh; /* ocupa toda la altura de la pantalla */
    background-color: #274193;
    display: flex;
    flex-direction: column;
    padding: 20px 0; /* Sin padding a los lados para que el botón toque el borde */
    border-radius: 30px 0px 0px 30px; /* Bordes redondeados del lado derecho de la barra */
+}
+
+.navbar a{
+    text-decoration: none;
 }
 
 /*logo promueve*/
@@ -320,4 +328,210 @@ height: fit-content; /* 👈 Cambia height: 100% por esto */
 
 .cards_background p, .cards_background span{
     color: #29356D!important;
+}
+
+/*---------------------------FILTROS---------------------------*/
+.cards_background .header_oportunidades h2{
+    margin: 18px;
+}
+
+.cards_background{
+    row-gap: 20px;  
+}
+
+.filters{
+    grid-column: 1 / -1;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Inputs y selects */
+.filters input[type="text"],
+.filters input[type="number"],
+.filter_select{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #EBEDF8;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-family: "Figtree", sans-serif;
+    font-size: 18px;
+    color: #274193;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+select.filter_select{ cursor: pointer; }
+
+.filters input:focus,
+.filter_select:focus{ border-color: #274193; }
+
+/* Cuadrícula de filtros */
+.filters_grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 18px;
+}
+
+.filter_group label{
+    display: block;
+    color: #274193;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 6px 10px;
+}
+
+.range{ display: flex; gap: 8px; }
+
+/* Skills */
+.filter_skills{
+    background-color: #EBEDF8;
+    border-radius: 25px;
+    padding: 12px 20px;
+}
+
+.filter_skills summary{
+    cursor: pointer;
+    color: #274193;
+    font-weight: 700;
+    font-size: 18px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.filter_skills summary::-webkit-details-marker{ display: none; }
+.filter_skills summary::after{ content: "▾"; margin-left: auto; }
+.filter_skills[open] summary::after{ content: "▴"; }
+
+.skills_count{
+    background-color: #FFD000;
+    border-radius: 50px;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.skills_tools{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+.skills_tools input[type="text"]{
+    background-color: #FFFFFF;
+    max-width: 320px;
+}
+
+.mode_toggle{
+    display: flex;
+    gap: 15px;
+    color: #274193;
+    font-size: 15px;
+}
+.mode_toggle label{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.mode_toggle input{ accent-color: #274193; }
+
+.skill_group{ margin-bottom: 12px; }
+.skill_group_title{
+    margin: 0 0 6px 5px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* Chips de skills */
+.chip_list{ display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip{
+    position: relative;
+    background-color: #FFFFFF;
+    color: #274193;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    user-select: none;
+}
+.chip input{ position: absolute; opacity: 0; pointer-events: none; }
+.chip:hover{ border-color: #274193; }
+.chip:has(input:checked){
+    background-color: #274193;
+    color: #FFFFFF;
+}
+
+/* Botones y contador */
+.filters_actions{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn_filter{
+    background-color: #274193;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-family: "Figtree", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0px 4px 0px 0px #1a2f6b;
+    transition: all 0.2s;
+}
+.btn_filter:hover{ background-color: #1a2f6b; }
+
+.btn_filter_clear{
+    background-color: #FFD000;
+    color: #274193;
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.btn_filter_clear:hover{ filter: brightness(0.95); }
+
+.results_count{
+    margin-left: auto;
+    font-weight: 700;
+}
+
+/* Necesario: .filters usa display:flex y ese display le gana al atributo hidden */
+.filters[hidden]{ display: none; }
+
+/* El botón de filtros del header */
+.filter:hover{ transform: scale(1.1); }
+
+/* Globito de filtros activos */
+.filter{ position: relative; }
+
+.filter_badge{
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    background-color: #FFD000;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
 }

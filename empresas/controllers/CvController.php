@@ -60,24 +60,39 @@ class CvController {
     }
 
 
-
-
-  public function allCvs(){
-
-    session_start();
-
-    if(!isset($_SESSION['user_id'])){
-        header("Location: ../views/login_view.php");
-        exit();
+   // funciones para los filtros
+    public function getFilters(){
+        return [
+            'career_category' => (int)($_GET['career_category'] ?? 0),
+            'career'          => (int)($_GET['career'] ?? 0),
+            'level'           => in_array($_GET['level'] ?? '', ['estudiante','egresado']) ? $_GET['level'] : '',
+            'age_min'         => (int)($_GET['age_min'] ?? 0),
+            'age_max'         => (int)($_GET['age_max'] ?? 0),
+            'skills'          => array_values(array_filter(array_map('intval', (array)($_GET['skills'] ?? [])))),
+            'skills_mode'     => ($_GET['skills_mode'] ?? 'all') === 'any' ? 'any' : 'all',
+            'order'           => ($_GET['order'] ?? '') === 'old' ? 'old' : 'recent',
+        ];
     }
 
-    //  opcional: solo empresas
-    if($_SESSION['role'] != 'company'){
-        exit("No autorizado");
+    public function filterOptions(){
+        return $this->model->getFilterOptions();
     }
 
-    return $this->model->getAllCvs();
-}
+    public function allCvs(){
+
+        session_start();
+
+        if(!isset($_SESSION['user_id'])){
+            header("Location: ../views/login_view.php");
+            exit();
+        }
+
+        if($_SESSION['role'] != 'company'){
+            exit("No autorizado");
+        }
+
+        return $this->model->getFilteredCvs($this->getFilters());
+    }
 
 
 

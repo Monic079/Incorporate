@@ -102,4 +102,90 @@ public function getAllCvs(){
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+// Nuevos metodos para los filtros
+public function getFilterOptions(){
+    return [
+        'career_categories' => $this->conn->query("SELECT id, name FROM career_categories ORDER BY name")->fetchAll(PDO::FETCH_ASSOC),
+        'careers'           => $this->conn->query("SELECT id, category_id, name FROM careers ORDER BY name")->fetchAll(PDO::FETCH_ASSOC),
+        'skills'            => $this->conn->query("
+                                SELECT s.id, s.name, sc.name AS category
+                                FROM skills s
+                                LEFT JOIN skill_categories sc ON sc.id = s.category_id
+                                ORDER BY sc.name, s.name
+                              ")->fetchAll(PDO::FETCH_ASSOC),
+    ];
+}
+
+public function getFilteredCvs(array $f){
+
+    $where  = [];
+    $params = [];
+
+    if($f['career']){
+        $where[]  = "EXISTS (SELECT 1 FROM cv_careers x WHERE x.cv_id = c.id AND x.career_id = ?)";
+        $params[] = $f['career'];
+    }
+
+    if($f['career_category']){
+        $where[]  = "EXISTS (SELECT 1 FROM cv_careers x
+                             JOIN careers ca ON ca.id = x.career_id
+                             WHERE x.cv_id = c.id AND ca.category_id = ?)";
+        $params[] = $f['career_category'];
+    }
+
+    if($f['level'] !== ''){
+        $where[]  = "c.level = ?";
+        $params[] = $f['level'];
+    }
+
+    if($f['age_min']){
+        $where[]  = "c.age >= ?";
+        $params[] = $f['age_min'];
+    }
+    if($f['age_max']){
+        $where[]  = "c.age <= ?";
+        $params[] = $f['age_max'];
+    }
+
+    if(!empty($f['skills'])){
+        $in = implode(',', array_fill(0, count($f['skills']), '?'));
+
+        if($f['skills_mode'] === 'any'){
+            $where[] = "EXISTS (SELECT 1 FROM cv_skills x WHERE x.cv_id = c.id AND x.skill_id IN ($in))";
+            foreach($f['skills'] as $sid){ $params[] = $sid; }
+        } else {
+            $where[] = "(SELECT COUNT(DISTINCT x.skill_id) FROM cv_skills x
+                         WHERE x.cv_id = c.id AND x.skill_id IN ($in)) = ?";
+            foreach($f['skills'] as $sid){ $params[] = $sid; }
+            $params[] = count($f['skills']);
+        }
+    }
+
+    $orderBy = $f['order'] === 'old' ? "c.created_at ASC" : "c.created_at DESC";
+
+    $sql = "
+        SELECT
+            c.id,
+            c.full_name,
+            c.photo,
+            MIN(cr.name) AS career,
+            GROUP_CONCAT(DISTINCT sk.name SEPARATOR '||') AS skills,
+            GROUP_CONCAT(DISTINCT CONCAT(cl.type, '::', cl.url) SEPARATOR '||') AS links
+        FROM cvs c
+        LEFT JOIN cv_careers cc ON c.id = cc.cv_id
+        LEFT JOIN careers cr    ON cc.career_id = cr.id
+        LEFT JOIN cv_skills cs  ON c.id = cs.cv_id
+        LEFT JOIN skills sk     ON cs.skill_id = sk.id
+        LEFT JOIN cv_links cl   ON c.id = cl.cv_id
+    ";
+
+    if($where){ $sql .= " WHERE " . implode(" AND ", $where); }
+
+    $sql .= " GROUP BY c.id ORDER BY $orderBy";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

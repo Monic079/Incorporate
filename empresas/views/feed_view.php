@@ -1,9 +1,19 @@
-  <?php
+<?php
 require_once "../controllers/CvController.php";
 
 $controller = new CvController();
 $cvs = $controller->allCvs();
+$f       = $controller->getFilters();
+$options = $controller->filterOptions();
+
+// cantidad de filtros activos
+$active = 0;
+foreach(['career_category','career','level','age_min','age_max'] as $k){
+    if(!empty($f[$k])) $active++;
+}
+if(!empty($f['skills'])) $active++;
 ?>
+
  <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -31,14 +41,126 @@ $cvs = $controller->allCvs();
     <!--Titulo-->
     <div class="header_oportunidades">
         <h2>Talento</h2>
+        <button type="button" class="filter" id="toggleFilters" title="Filtros">
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#274193"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 5h18M6 12h12M10 19h4"/>
+               </svg>
+               
+               <!--Si hay filtros activos-->
+               <?php if($active): ?>
+                  <span class="filter_badge"><?= $active ?></span>
+               <?php endif; ?>
+         </button>
     </div>
 
-      <?php if(empty($cvs)): ?>
-         <p>No has creado CVs aún.</p>
-      <?php else: ?>
+         <!-- FILTROS -->
+         <form method="GET" class="filters" id="filtersPanel"  hidden>
+
+            <div class="filters_grid">
+
+               <div class="filter_group">
+                  <label>Categoría</label>
+                  <select name="career_category" id="selCategory" class="filter_select">
+                     <option value="0">Todas</option>
+                     <?php foreach($options['career_categories'] as $c): ?>
+                        <option value="<?= $c['id'] ?>" <?= $f['career_category']==$c['id'] ? 'selected' : '' ?>>
+                           <?= htmlspecialchars($c['name']) ?>
+                        </option>
+                     <?php endforeach; ?>
+                  </select>
+               </div>
+
+               <div class="filter_group">
+                  <label>Carrera</label>
+                  <select name="career" id="selCareer" class="filter_select">
+                     <option value="0">Todas</option>
+                     <?php foreach($options['careers'] as $c): ?>
+                        <option value="<?= $c['id'] ?>" data-cat="<?= $c['category_id'] ?>"
+                           <?= $f['career']==$c['id'] ? 'selected' : '' ?>>
+                           <?= htmlspecialchars($c['name']) ?>
+                        </option>
+                     <?php endforeach; ?>
+                  </select>
+               </div>
+
+               <div class="filter_group">
+                  <label>Nivel</label>
+                  <select name="level" class="filter_select">
+                     <option value="">Todos</option>
+                     <option value="estudiante" <?= $f['level']==='estudiante' ? 'selected' : '' ?>>Estudiante</option>
+                     <option value="egresado"   <?= $f['level']==='egresado'   ? 'selected' : '' ?>>Egresado</option>
+                  </select>
+               </div>
+
+               <div class="filter_group">
+                  <label>Edad</label>
+                  <div class="range">
+                     <input type="number" name="age_min" min="15" class="filter_select"
+                            value="<?= $f['age_min'] ?: '' ?>" placeholder="Mín">
+                     <input type="number" name="age_max" min="15" class="filter_select"
+                            value="<?= $f['age_max'] ?: '' ?>" placeholder="Máx">
+                  </div>
+               </div>
+
+               <div class="filter_group">
+                  <label>Ordenar</label>
+                  <select name="order" class="filter_select">
+                     <option value="recent" <?= $f['order']==='recent' ? 'selected' : '' ?>>Más recientes</option>
+                     <option value="old"    <?= $f['order']==='old'    ? 'selected' : '' ?>>Más antiguos</option>
+                  </select>
+               </div>
+            </div>
+
+            <!-- SKILLS -->
+            <details class="filter_skills" <?= !empty($f['skills']) ? 'open' : '' ?>>
+               <summary>
+                  Skills
+                  <span class="skills_count" id="skillsCount"><?= count($f['skills']) ?></span>
+               </summary>
+
+               <div class="skills_tools">
+                  <input type="text" id="skillSearch" class="filter_select" placeholder="Buscar skill...">
+                  <div class="mode_toggle">
+                     <label><input type="radio" name="skills_mode" value="all" <?= $f['skills_mode']==='all' ? 'checked' : '' ?>> Todas</label>
+                     <label><input type="radio" name="skills_mode" value="any" <?= $f['skills_mode']==='any' ? 'checked' : '' ?>> Cualquiera</label>
+                  </div>
+               </div>
+
+                              <?php
+               $grouped = [];
+               foreach($options['skills'] as $s){ $grouped[$s['category'] ?? 'Otras'][] = $s; }
+               ?>
+               <?php foreach($grouped as $cat => $list): ?>
+                  <div class="skill_group">
+                     <p class="skill_group_title"><?= htmlspecialchars($cat) ?></p>
+                     <div class="chip_list">
+                        <?php foreach($list as $s): ?>
+                           <label class="chip" data-name="<?= htmlspecialchars(mb_strtolower($s['name'])) ?>">
+                              <input type="checkbox" name="skills[]" value="<?= $s['id'] ?>"
+                                 <?= in_array($s['id'], $f['skills']) ? 'checked' : '' ?>>
+                              <?= htmlspecialchars($s['name']) ?>
+                           </label>
+                        <?php endforeach; ?>
+                     </div>
+                  </div>
+               <?php endforeach; ?>
+            </details>
+
+            <div class="filters_actions">
+               <button type="submit" class="btn_filter">Aplicar filtros</button>
+               <a href="feed_view.php" class="btn_filter_clear">Limpiar<?= $active ? " ($active)" : "" ?></a>
+               <span class="results_count"><?= count($cvs) ?> resultado<?= count($cvs)===1 ? '' : 's' ?></span>
+            </div>
+         </form>
+
+         <!-- CARDS -->
+         <?php if(empty($cvs)): ?>
+            <p style="grid-column:1/-1"><?= $active ? 'Ningún CV coincide con los filtros.' : 'No hay CVs aún.' ?></p>
+         <?php else: ?>
+
 
          <?php foreach($cvs as $cv): ?>
-               
                <div class="card">
 
                   <!-- Carrera -->
@@ -99,5 +221,6 @@ $links = !empty($cv['links']) ? explode('||', $cv['links']) : [];
    </div>
 
       </div>
+   <script src="../assets/js/filters.js"></script>
  </body>
  </html>
