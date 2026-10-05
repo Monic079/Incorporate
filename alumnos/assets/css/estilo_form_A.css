@@ -26,6 +26,10 @@ body{
     margin: 0 auto 40px auto; /* Centra el logo y da espacio abajo */
 }
 
+.navbar a{
+    text-decoration: none;
+}
+
 .navbar button {
     background: none;
     border: none;
