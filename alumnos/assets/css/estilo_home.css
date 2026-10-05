@@ -72,7 +72,7 @@ body{
     flex: 1; /* ocupa todo el espacio restante */
     padding: 20px;
     border-radius: 0px 30px 30px 0px; /* Bordes redondeados del lado derecho y abajo del div de fondo del contenido */
-     overflow-y: auto; /* aquí scrollean las tarjetas */
+    overflow-y: auto; /* aquí scrollean las tarjetas */
     min-width: 0;
     height: 100%;
     box-sizing: border-box;

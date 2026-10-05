@@ -1,10 +1,12 @@
 <?php
 require_once "../controllers/CvController.php";
+require_once "../controllers/MatchingController.php"; 
 
 $controller = new CvController();
 $cv = $controller->show();
 
 $applications = $controller->getApplications($cv['id']);
+$matching = (new MatchingController())->forCv((int)$cv['id'], 6);  
 ?>
 
 <!DOCTYPE html>
@@ -231,7 +233,8 @@ $applications = $controller->getApplications($cv['id']);
                 </div>
 
             </div>
-
+            
+        <?php include __DIR__ . "/matching_section.php"; ?>
         </div>
     </body>
 </html>

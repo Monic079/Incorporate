@@ -53,11 +53,17 @@ class ApplicationController {
         $this->model->apply($cv_id, $opportunity_id);
 
         // 🔹 4. Redirección
-        header("Location: ../views/oportunidades_detail_view.php?id=".$opportunity_id);
+        //header("Location: ../views/oportunidades_detail_view.php?id=".$opportunity_id);
+        // 🔹 4. Redirección
+        if(($_GET['back'] ?? '') === 'cv'){
+            header("Location: ../views/cv_detail_view.php?id=".(int)$cv_id."#matching_section");
+        } else {
+            header("Location: ../views/oportunidades_detail_view.php?id=".$opportunity_id);
+        }
         exit();
     }
 
-//Función para permtiir que en cada oportunidad_detail_view.php se vea que cv a aplicado :D
+//Función para permitir que en cada oportunidad_detail_view.php se vea que cv a aplicado :D
     public function getByOpportunity($opportunity_id){
         return $this->model->getApplicationsByOpportunity($opportunity_id);
     }
