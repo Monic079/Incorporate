@@ -82,3 +82,70 @@
     grid-column: 1 / -1; /* ocupa toda la fila */
     margin: 0 0 8px 0;
 }
+
+/*---------------------------MATCHING---------------------------*/
+.matching{
+    background-color: #EBEDF8;
+    border-radius: 30px;
+    padding: 20px 30px 30px;
+    margin-top: 30px;
+}
+
+.matching_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.matching_header h2{ color: #274193; font-weight: 700; font-size: 32px; margin: 0; }
+.matching_hint{ color: #29356D; font-size: 14px; }
+.matching_empty{ color: #29356D; }
+
+.matching_list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.match_card{
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.match_top{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.match_top h3{ color: #274193; font-weight: 700; font-size: 20px; margin: 0; }
+.match_sub{ color: #29356D; font-size: 14px; margin: 4px 0 0; }
+
+.match_applied{
+    background-color: #FFD000;
+    color: #274193;
+    border-radius: 50px;
+    padding: 1px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 6px;
+}
+
+.match_pct{ font-size: 28px; font-weight: 800; color: #274193; }
+.match_low{ opacity: .6; }
+
+.match_bar{ background-color: #EBEDF8; border-radius: 50px; height: 12px; overflow: hidden; }
+.match_fill{ height: 100%; border-radius: 50px; transition: width .4s; }
+.match_fill_high{ background-color: #274193; }
+.match_fill_mid{  background-color: #FFD000; }
+.match_fill_low{  background-color: #b9bfdc; }
+
+.match_skills{ display: flex; flex-wrap: wrap; gap: 6px; }
+.match_chip{ border-radius: 50px; padding: 2px 10px; font-size: 12px; }
+.match_chip_ok{ background-color: #274193; color: #FFFFFF; }
+.match_chip_no{ background-color: #EBEDF8; color: #29356D; text-decoration: line-through; opacity: .8; }
+
+.match_link{ color: #274193; font-weight: 700; text-decoration: none; align-self: flex-end; }
+.match_link:hover{ text-decoration: underline; }

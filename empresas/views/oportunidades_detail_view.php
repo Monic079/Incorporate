@@ -1,15 +1,17 @@
 <?php
 require_once "../controllers/OpportunityController.php";
 require_once "../controllers/ApplicationController.php";
+require_once "../controllers/MatchingController.php"; 
 
 $controller = new OpportunityController();
 $op = $controller->show();
 
 $appController = new ApplicationController();
-// 🔹 Obtener el conteo real usando el ID de la oportunidad actual
+// Obtener el conteo real usando el ID de la oportunidad actual
 $totalApplications = $appController->getCount($op['id']);
 $applications = $appController->getByOpportunity($op['id']);
-
+// Muestra los 6 cvs con los que la oportunidad hace matching
+$matching = (new MatchingController())->forOpportunity((int)$op['id'], 6); 
 ?>
 
 
@@ -20,7 +22,7 @@ $applications = $appController->getByOpportunity($op['id']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Incorpórate</title>
     <link rel="stylesheet" href="../assets/css/estilo_form.css">
-    <link rel="stylesheet" href="../assets/css/estilo_details.css">
+    <link rel="stylesheet" href="../assets/css/estilo_details.css?v=<?= time() ?>">
     
  </head>
  <body>
@@ -139,82 +141,79 @@ $applications = $appController->getByOpportunity($op['id']);
 
             </div>
         
+            <!-- apartado de matching -->
+        <?php include __DIR__ . "/matching_section.php"; ?>
+
         <div class="header_oportunidades">
 
 
-<div id="applications_section"> 
+            <div id="applications_section"> 
 
-    <h3>Cvs que se han postulado a esta oportunidad</h3>
+                <h3>Cvs que se han postulado a esta oportunidad</h3>
 
-    <?php if(!empty($applications)): ?>
-        
-        <?php foreach($applications as $app): ?>
-            
-            <div class="card">
-
-                <div class="category">
-                    <p><?= $app['level'] ?></p>
-                </div>
-
-                <h3><?= $app['full_name'] ?></h3>
-
-                <?php if(!empty($app['photo'])): ?>
+                <?php if(!empty($applications)): ?>
                     
-                    <img src="../../alumnos/assets/img/uploads/<?= $app['photo'] ?>" width="100">
+                    <?php foreach($applications as $app): ?>
+                        
+                        <div class="card">
+
+                            <div class="category">
+                                <p><?= $app['level'] ?></p>
+                            </div>
+
+                            <h3><?= $app['full_name'] ?></h3>
+
+                            <?php if(!empty($app['photo'])): ?>
+                                
+                                <img src="../../alumnos/assets/img/uploads/<?= $app['photo'] ?>" width="100">
+                            <?php endif; ?>
+
+                            <div class="info_1">
+                                <p><strong>Año:</strong> <?= $app['year'] ?? 'N/A' ?></p>
+                            </div>
+
+                            <div class="info_1">
+                                <p><strong>Estado:</strong> <?= $app['status'] ?></p>
+                            </div>
+
+                            <div class="info_1">
+                                <p><strong>Aplicado:</strong> <?= $app['applied_at'] ?></p>
+                            </div>
+
+                            <!-- OPCIONAL: ver CV -->
+                            <a href="cv_detail_view.php?id=<?= $app['cv_id'] ?>">
+                                <button class="btn_form">Ver CV</button>
+                            </a>
+
+
+
+                            <form method="POST" action="../controllers/ApplicationController.php?action=updateStatus">
+                                
+                                <input type="hidden" name="application_id" value="<?= $app['application_id'] ?>">
+                                <input type="hidden" name="opportunity_id" value="<?= $_GET['id'] ?>">
+
+                                <select name="status">
+                                    <option value="aplicado" <?= $app['status']=='aplicado'?'selected':'' ?>>Aplicado</option>
+                                    <option value="revision" <?= $app['status']=='revision'?'selected':'' ?>>Revisión</option>
+                                    <option value="rechazado" <?= $app['status']=='rechazado'?'selected':'' ?>>Rechazado</option>
+                                    <option value="aceptado" <?= $app['status']=='aceptado'?'selected':'' ?>>Aceptado</option>
+                                </select>
+
+                                <button type="submit">Actualizar</button>
+
+                            </form>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                <?php else: ?>
+                    <p>Nadie ha aplicado a esta oportunidad</p>
                 <?php endif; ?>
 
-                <div class="info_1">
-                    <p><strong>Año:</strong> <?= $app['year'] ?? 'N/A' ?></p>
-                </div>
-
-                <div class="info_1">
-                    <p><strong>Estado:</strong> <?= $app['status'] ?></p>
-                </div>
-
-                <div class="info_1">
-                    <p><strong>Aplicado:</strong> <?= $app['applied_at'] ?></p>
-                </div>
-
-                <!-- 🔥 OPCIONAL: ver CV -->
-                <a href="cv_detail_view.php?id=<?= $app['cv_id'] ?>">
-                    <button class="btn_form">Ver CV</button>
-                </a>
-
-
-
-                <form method="POST" action="../controllers/ApplicationController.php?action=updateStatus">
-                    
-                    <input type="hidden" name="application_id" value="<?= $app['application_id'] ?>">
-                    <input type="hidden" name="opportunity_id" value="<?= $_GET['id'] ?>">
-
-                    <select name="status">
-                        <option value="aplicado" <?= $app['status']=='aplicado'?'selected':'' ?>>Aplicado</option>
-                        <option value="revision" <?= $app['status']=='revision'?'selected':'' ?>>Revisión</option>
-                        <option value="rechazado" <?= $app['status']=='rechazado'?'selected':'' ?>>Rechazado</option>
-                        <option value="aceptado" <?= $app['status']=='aceptado'?'selected':'' ?>>Aceptado</option>
-                    </select>
-
-                    <button type="submit">Actualizar</button>
-
-                </form>
-
             </div>
-
-        <?php endforeach; ?>
-
-    <?php else: ?>
-        <p>Nadie ha aplicado a esta oportunidad</p>
-    <?php endif; ?>
-
+       </div>
 </div>
-
-         </div>
-
-
-
-
-
-      </div>
 
 <script src="../assets/js/s"></script>
  </body>
