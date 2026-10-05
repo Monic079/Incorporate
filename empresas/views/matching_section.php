@@ -3,11 +3,25 @@
 if(!$matching) return;
 ?>
 <section class="matching" id="matching_section">
-
     <div class="matching_header">
         <h2>Matching</h2>
-        <span class="matching_hint">Criterios usados: <?= htmlspecialchars(implode(', ', $matching['criteria']) ?: 'ninguno') ?></span>
-    </div>
+        <?php
+            $labels = ['skills' => 'Skills', 'carrera' => 'Carrera', 'nivel' => 'Nivel'];
+            $weights = [
+                'skills'  => MatchingController::W_SKILLS,
+                'carrera' => MatchingController::W_CAREER,
+                'nivel'   => MatchingController::W_LEVEL,
+            ];
+            $sum = 0;
+            foreach($matching['criteria'] as $k) $sum += $weights[$k];
+            ?>
+            <div class="matching_hint">
+                <?php foreach($matching['criteria'] as $k): ?>
+                    <span class="hint_chip">
+                        <?= $labels[$k] ?> <?= $sum ? round($weights[$k] / $sum * 100) : 0 ?>%
+                    </span>
+    <?php endforeach; ?>
+</div>
 
     <?php if(empty($matching['criteria'])): ?>
         <p class="matching_empty">Esta oportunidad no tiene skills, carreras ni nivel definidos, así que no se puede calcular el matching.</p>
@@ -50,7 +64,10 @@ if(!$matching) return;
                         </div>
                     <?php endif; ?>
 
-                    <a class="match_link" href="cv_detail_view.php?id=<?= $m['cv_id'] ?>">Ver CV →</a>
+                    <a class="match_link" href="cv_detail_view.php?id=<?= $m['cv_id'] ?>">
+                        Ver CV
+                        <span class="match_link_arrow">→</span>
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>

@@ -7,17 +7,22 @@ body{
     display: flex;
     padding: 20px; /* Este crea el "marco" alrededor de todo */
     box-sizing: border-box;
+    overflow: hidden;       /* la página en sí no scrollea */
+    height: 100vh;          /* ocupa exactamente la pantalla */
 }
 
 /*---------------------------NAVBAR---------------------------*/
 .navbar {
    width: 430px; /* ancho fijo del menú */
-   height: 100vh; /* ocupa toda la altura de la pantalla */
+   height: 100%; /* ocupa toda la altura de la pantalla */
+   flex-shrink: 0;
    background-color: #274193;
    display: flex;
    flex-direction: column;
    padding: 20px 0; /* Sin padding a los lados para que el botón toque el borde */
    border-radius: 30px 0px 0px 30px; /* Bordes redondeados del lado derecho de la barra */
+   box-sizing: border-box;
+   overflow-y: auto;       /* por si la pantalla es muy baja */
 }
 
 .navbar a{
@@ -67,6 +72,10 @@ body{
     flex: 1; /* ocupa todo el espacio restante */
     padding: 20px;
     border-radius: 0px 30px 30px 0px; /* Bordes redondeados del lado derecho y abajo del div de fondo del contenido */
+    overflow-y: auto; /* aquí scrollean las tarjetas */
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .content > div, 
