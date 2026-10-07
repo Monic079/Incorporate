@@ -1,9 +1,14 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once "../controllers/OpportunityController.php";
 require_once "../controllers/ApplicationController.php";
 
 $controller = new OpportunityController();
 $op = $controller->show();
+$nombre = $_SESSION['user_name'] ?? 'Empresa';
 
 $appController = new ApplicationController();
 // 🔹 Obtener el conteo real usando el ID de la oportunidad actual
@@ -34,7 +39,7 @@ $applications = $appController->getByOpportunity($op['id']);
         <div class="content">
 
             <div class="label">
-                <h1>¡Promueve el talento, [user]!</h1>
+                <h1>¡Promueve el talento, <?= htmlspecialchars($nombre) ?>!</h1>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">

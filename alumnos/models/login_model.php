@@ -75,4 +75,15 @@ public function getStudentByUserId($user_id){
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+    // Obtener el nombre del estudiante desde su CV
+    public function getCvName($student_id){
+        $sql = "SELECT full_name FROM cvs WHERE student_id = :student_id ORDER BY id DESC LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":student_id", $student_id);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? $row['full_name'] : null;
+    }
+
 }

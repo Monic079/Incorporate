@@ -3,6 +3,8 @@ require_once "../controllers/OpportunityController.php";
 
 $controller = new OpportunityController();
 $ops = $controller->index();
+
+$nombre = $_SESSION['user_name'] ?? 'Empresa';
 ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -22,7 +24,7 @@ $ops = $controller->index();
       </div>
       <div class="content">
          <div class="label">
-            <h1>¡Promueve el talento, [user]!</h1>
+            <h1>¡Promueve el talento, <?= htmlspecialchars($nombre) ?>!</h1>
          </div>
          <a href="oportunidades_form_view.php"><button class="btn_opor"> <img src="../assets/img/icons/plus-small_w.png" alt="Crear oportunidad"> Crear oportunidad </button> </a>      
          <div class="cards_background">

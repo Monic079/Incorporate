@@ -54,6 +54,7 @@ if($action == "login"){
             //  validación importante
             if($companyUser){
                 $_SESSION['company_user_id'] = $companyUser['id'];
+                $_SESSION['user_name'] = $companyUser['contact_name'];
 
                 //DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUG
                 /*

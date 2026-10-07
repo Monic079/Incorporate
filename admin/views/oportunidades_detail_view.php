@@ -35,7 +35,7 @@ $applications = $appController->getByOpportunity($op['id']);
         <div class="content">
 
             <div class="label">
-                <h1>¡Promueve el talento, [user]!</h1>
+                 <h1>¡Conecta el talento, Equipo Incorpórate!</h1>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">

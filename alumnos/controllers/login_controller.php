@@ -46,6 +46,7 @@ if($action == "login"){
             
             if($student){
                 $_SESSION['student_id'] = $student['id'];
+                $_SESSION['user_name'] = $model->getCvName($student['id']) ?: 'Estudiante';
             } else {
                 echo "Error: no existe estudiante asociado";
                 exit();

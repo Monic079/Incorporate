@@ -1,4 +1,9 @@
  <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once "../controllers/CvController.php";
 require_once "../controllers/OpportunityController.php";
 
@@ -7,6 +12,8 @@ $cvs = $cvController->getUserCvs();
 
 $controller = new CvController();
 $ops = $controller->feed();
+
+$nombre = $_SESSION['user_name'] ?? 'Estudiante';
 ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -26,7 +33,7 @@ $ops = $controller->feed();
       </div>
       <div class="content">
          <div class="label">
-            <h1>¡Muestra tu talento, [user]!</h1>
+            <h1>¡Muestra tu talento, <?= htmlspecialchars($nombre) ?>!</h1>
          </div>
          <div class="cards_background">
             <!--Titulo y filtros-->

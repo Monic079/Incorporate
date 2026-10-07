@@ -1,3 +1,12 @@
+ <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$nombre = $_SESSION['user_name'] ?? 'Estudiante';
+?>
+ 
+ 
  <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -16,7 +25,7 @@
       </div>
       <div class="content">
          <div class="label">
-            <h1>¡Muestra tu talento, [user]!</h1>
+            <h1>¡Muestra tu talento, <?= htmlspecialchars($nombre) ?>!</h1>
          </div>
          
          <div class="cards_background">

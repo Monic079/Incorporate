@@ -19,6 +19,8 @@ if($_SESSION['role'] != 'company'){
     echo "Acceso denegado";
     exit();
 }
+$nombre = $_SESSION['user_name'] ?? 'Empresa';
+
 
 $errors = $_SESSION['errors'] ?? [];
 $old = $_SESSION['old'] ?? [];
@@ -47,7 +49,7 @@ unset($_SESSION['old']);
       <div class="content">
 
          <div class="label">
-            <h1>¡Promueve el talento, [user]!</h1>
+            <h1>¡Promueve el talento, <?= htmlspecialchars($nombre) ?>!</h1>
          </div>
 
 <!---------------------INDICE----------------------------------------------------------------->

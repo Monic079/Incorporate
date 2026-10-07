@@ -1,10 +1,16 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once "../controllers/CvController.php";
 
 $controller = new CvController();
 $cvs = $controller->allCvs();
 $f       = $controller->getFilters();
 $options = $controller->filterOptions();
+$nombre = $_SESSION['user_name'] ?? 'Empresa';
 
 // cantidad de filtros activos
 $active = 0;
@@ -32,7 +38,7 @@ if(!empty($f['skills'])) $active++;
       </div>
       <div class="content">
          <div class="label">
-            <h1>¡Promueve el talento, [user]!</h1>
+            <h1>¡Promueve el talento, <?= htmlspecialchars($nombre) ?>!</h1>
          </div>
          
 <!--CARD-->

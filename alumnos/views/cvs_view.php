@@ -1,8 +1,15 @@
  <?php
+
+ if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once "../controllers/CvController.php";
 
 $controller = new CvController();
 $cvs = $controller->myCvs();
+
+$nombre = $_SESSION['user_name'] ?? 'Estudiante';
 ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -22,7 +29,7 @@ $cvs = $controller->myCvs();
       </div>
       <div class="content">
          <div class="label">
-            <h1>¡Muestra el talento, [user]!</h1>
+            <h1>¡Muestra tu talento, <?= htmlspecialchars($nombre) ?>!</h1>
          </div>
          <a href="cv_form_view.php"><button class="btn_opor"> <img src="../assets/img/icons/plus-small_w.png" alt="Crear oportunidad"> Crear CV </button> </a>      
          <div class="cards_background">

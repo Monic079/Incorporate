@@ -18,7 +18,9 @@ class CvController {
 // =========================
 public function save(){
 
+    if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
 
     if(!isset($_SESSION['user_id'])){
         header("Location: ../views/login_view.php");
@@ -137,7 +139,9 @@ public function save(){
 
     //función para mostrar todos los cvs bro 
     public function myCvs(){
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
         if(!isset($_SESSION['user_id'])){
             header("Location: ../views/login_view.php");
@@ -149,7 +153,9 @@ public function save(){
 
     //FUNCIÓN NUEVO PARA DARLE FUNCIONALIDAD AL BOTÓN APPLY DESDE FEED DONDE HAY VARIAS OPORTUNIDADES Y PODER SELECCIONAR QUÉ CV APLICA
     public function getUserCvs(){
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
         return $this->model->getByUserId($_SESSION['user_id']);
     }
 

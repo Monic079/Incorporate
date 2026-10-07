@@ -18,7 +18,14 @@ class OpportunityController {
     // =========================
     public function save(){
 
-        session_start(); // ⚠️ ASEGÚRATE DE ESTO
+        if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if(!isset($_SESSION['company_user_id'])){
+    header("Location: ../views/login_view.php");
+    exit();
+}
 
         $data = $_POST;
         $errors = [];
@@ -140,17 +147,20 @@ class OpportunityController {
         return $data;
     }
 
-    //función para mandar a llamar y mostrar las oportunidades en home bro
     public function index(){
-            session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['company_user_id'])){
+        header("Location: ../views/login_view.php");
+        exit();
+    }
 
     $company_user_id = $_SESSION['company_user_id'];
 
-    $data = $this->model->getByCompanyUser($company_user_id);
-
-    return $data;
-        
-    }
+    return $this->model->getByCompanyUser($company_user_id);
+}
 
 
     
